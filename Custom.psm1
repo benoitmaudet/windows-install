@@ -53,3 +53,25 @@ Function RemoveRenamedDefaultAccount {
      Rename-LocalUser renamedGuest -NewName Invité
      Rename-LocalUser renamedAdm -NewName Administrateur
 }
+
+Function EnableActivationServer {
+    Write-Output "Enabling activation server"
+    # Already done in DisableTelemetry
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform" -Name "NoGenTicket" -Type DWord -Value 1
+    
+    $kms_server = "XXX.XXX.XXX.XXXX:1688"
+
+    $edition = Get-WindowsEdition -Online | select -ExpandProperty Edition
+    if ($edition -eq "ProfessionalN") {
+        $key = "MH37W-N47XK-V7XM9-C7227-GCQG9"
+    }
+    ElseIf ($edition -eq "EnterpriseN") {
+        $key = "DPH2V-TTNVB-4X9Q3-TJR4H-KHJW4"
+    }
+
+    cscript.exe $env:SystemRoot\System32\slmgr.vbs /upk
+    cscript.exe $env:SystemRoot\System32\slmgr.vbs /ipk $key
+    cscript.exe $env:SystemRoot\System32\slmgr.vbs /skms $kms_server
+    cscript.exe $env:SystemRoot\System32\slmgr.vbs /ato
+    cscript.exe $env:SystemRoot\System32\slmgr.vbs /dlv
+}

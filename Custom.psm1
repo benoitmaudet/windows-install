@@ -14,13 +14,13 @@ Function AddCustomAdminUser {
     $Password = Read-Host -AsSecureString
     New-LocalUser "adm" -Password $Password
     Add-LocalGroupMember -Group "Administrateurs" -Member "adm"
-    Get-LocalUser | Where-Object {$_.Enabled -eq "True" -and $_.Name -ne "adm"} | Remove-LocalGroupMember -Group "Administrateurs" -Member {$._Name}
+    Get-LocalUser | Where-Object {$_.Enabled -eq "True" -and $_.Name -ne "adm"} | Remove-LocalGroupMember -Group "Administrateurs" -Member {$_.Name}
 }
 
 # Remove custom admin user and set other users as Administrator
 Function RemoveCustomAdminUser {
     Write-Output "Removing custom admin user and setting other users as Administrator..."
-    Get-LocalUser | Where-Object {$_.Enabled -eq "True" -and $_.Name -ne "adm"} | Add-LocalGroupMember -Group "Administrateurs" -Member {$._Name}
+    Get-LocalUser | Where-Object {$_.Enabled -eq "True" -and $_.Name -ne "adm"} | Add-LocalGroupMember -Group "Administrateurs" -Member {$_.Name}
     Remove-LocalGroupMember -Group "Administrateurs" -Member "adm"
     Remove-LocalUser -Name "adm"
 }
@@ -67,6 +67,9 @@ Function EnableActivationServer {
     }
     ElseIf ($edition -eq "EnterpriseN") {
         $key = "DPH2V-TTNVB-4X9Q3-TJR4H-KHJW4"
+    }
+    ElseIf ($edition -eq "Enterprise") {
+        $key = "NPPR9-FWDCX-D2C8J-H872K-2YT43"
     }
 
     cscript.exe $env:SystemRoot\System32\slmgr.vbs /upk

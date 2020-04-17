@@ -4,6 +4,7 @@
 # Version: v3.8, 2019-09-11
 # Source: https://github.com/Disassembler0/Win10-Initial-Setup-Script
 # Custom Tweaks
+# powershell.exe -NoProfile -ExecutionPolicy Bypass -File Win10.ps1 -include Custom.psm1 EnableOfficeActivationServer 
 ##########
 
 # Add custom admin user
@@ -14,13 +15,13 @@ Function AddCustomAdminUser {
     $Password = Read-Host -AsSecureString
     New-LocalUser "adm" -Password $Password
     Add-LocalGroupMember -Group "Administrateurs" -Member "adm"
-    Get-LocalUser | Where-Object {$_.Enabled -eq "True" -and $_.Name -ne "adm"} | Remove-LocalGroupMember -Group "Administrateurs" -Member {$_.Name}
+    Get-LocalUser | Where-Object {$_.Enabled -eq "True" -and $_.Name -ne "adm"} | Remove-LocalGroupMember -Group "Administrateurs" -Member {$._Name}
 }
 
 # Remove custom admin user and set other users as Administrator
 Function RemoveCustomAdminUser {
     Write-Output "Removing custom admin user and setting other users as Administrator..."
-    Get-LocalUser | Where-Object {$_.Enabled -eq "True" -and $_.Name -ne "adm"} | Add-LocalGroupMember -Group "Administrateurs" -Member {$_.Name}
+    Get-LocalUser | Where-Object {$_.Enabled -eq "True" -and $_.Name -ne "adm"} | Add-LocalGroupMember -Group "Administrateurs" -Member {$._Name}
     Remove-LocalGroupMember -Group "Administrateurs" -Member "adm"
     Remove-LocalUser -Name "adm"
 }
@@ -59,7 +60,7 @@ Function EnableActivationServer {
     # Already done in DisableTelemetry
     Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform" -Name "NoGenTicket" -Type DWord -Value 1
     
-    $kms_server = "XXX.XXX.XXX.XXXX:1688"
+    $kms_server = "192.168.0.253:1688"
 
     $edition = Get-WindowsEdition -Online | select -ExpandProperty Edition
     if ($edition -eq "ProfessionalN") {
@@ -77,4 +78,21 @@ Function EnableActivationServer {
     cscript.exe $env:SystemRoot\System32\slmgr.vbs /skms $kms_server
     cscript.exe $env:SystemRoot\System32\slmgr.vbs /ato
     cscript.exe $env:SystemRoot\System32\slmgr.vbs /dlv
+}
+
+
+Function EnableOfficeActivationServer {
+    Write-Output "Enabling office activation server"
+    # Already done in DisableTelemetry
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform" -Name "NoGenTicket" -Type DWord -Value 1
+    
+     # Already done in EnableActivationServer
+    $kms_server = "192.168.0.253:1688"
+    cscript.exe $env:SystemRoot\System32\slmgr.vbs /skms $kms_server
+   
+    $customPath = Split-Path -Parent $PSCommandPath
+    Invoke-Expression -Command:"$customPath\C2R-R2V.cmd"
+    
+    cscript.exe "$Env:Programfiles\Microsoft Office\Office16\OSPP.VBS" /dstatus
+    cscript.exe "$Env:Programfiles\Microsoft Office\Office16\OSPP.VBS" /act
 }

@@ -1,7 +1,7 @@
 ##########
 # Win 10 / Server 2016 / Server 2019 Initial Setup Script - Default preset
 # Author: Disassembler <disassembler@dasm.cz>
-# Version: v3.8, 2019-09-11
+# Version: v3.9, 2020-04-02
 # Source: https://github.com/Disassembler0/Win10-Initial-Setup-Script
 ##########
 
@@ -12,11 +12,11 @@ RequireAdmin
 DisableTelemetry                # EnableTelemetry
 DisableWiFiSense                # EnableWiFiSense
 # DisableSmartScreen            # EnableSmartScreen
-DisableWebSearch                # EnableWebSearch
+DisableWebSearch              # EnableWebSearch
 DisableAppSuggestions           # EnableAppSuggestions
 DisableActivityHistory          # EnableActivityHistory
 DisableBackgroundApps           # EnableBackgroundApps
-DisableSensors                  # EnableSensors
+DisableSensors                # EnableSensors
 DisableLocation                 # EnableLocation
 DisableMapUpdates               # EnableMapUpdates
 DisableFeedback                 # EnableFeedback
@@ -24,14 +24,14 @@ DisableTailoredExperiences      # EnableTailoredExperiences
 DisableAdvertisingID            # EnableAdvertisingID
 DisableWebLangList              # EnableWebLangList
 DisableCortana                  # EnableCortana
-DisableBiometrics               # EnableBiometrics
-DisableCamera                   # EnableCamera
-DisableMicrophone               # EnableMicrophone
+DisableBiometrics             # EnableBiometrics
+DisableCamera                 # EnableCamera
+DisableMicrophone             # EnableMicrophone
 DisableErrorReporting           # EnableErrorReporting
 # SetP2PUpdateLocal             # SetP2PUpdateInternet          # SetP2PUpdateDisable
 DisableDiagTrack                # EnableDiagTrack
 DisableWAPPush                  # EnableWAPPush
-EnableClearRecentFiles          # DisableClearRecentFiles
+EnableClearRecentFiles        # DisableClearRecentFiles
 # DisableRecentFiles            # EnableRecentFiles
 
 ### Security Tweaks ###
@@ -47,7 +47,7 @@ DisableAdminShares              # EnableAdminShares
 # EnableDefenderAppGuard        # DisableDefenderAppGuard
 HideAccountProtectionWarn       # ShowAccountProtectionWarn
 # DisableDownloadBlocking       # EnableDownloadBlocking
-#DisableScriptHost              # EnableScriptHost
+# DisableScriptHost               # EnableScriptHost
 EnableDotNetStrongCrypto        # DisableDotNetStrongCrypto
 # EnableMeltdownCompatFlag      # DisableMeltdownCompatFlag
 EnableF8BootMenu                # DisableF8BootMenu
@@ -60,16 +60,16 @@ SetCurrentNetworkPrivate        # SetCurrentNetworkPublic
 # SetUnknownNetworksPrivate     # SetUnknownNetworksPublic
 # DisableNetDevicesAutoInst     # EnableNetDevicesAutoInst
 # DisableHomeGroups             # EnableHomeGroups
-DisableSMB1                     # EnableSMB1
+DisableSMB1                   # EnableSMB1
 # DisableSMBServer              # EnableSMBServer
 # DisableNetBIOS                # EnableNetBIOS
-DisableLLMNR                    # EnableLLMNR
+DisableLLMNR                  # EnableLLMNR
 # DisableLLDP                   # EnableLLDP
 # DisableLLTD                   # EnableLLTD
 # DisableMSNetClient            # EnableMSNetClient
 # DisableQoS                    # EnableQoS
 # DisableIPv4                   # EnableIPv4
-DisableIPv6                     # EnableIPv6
+DisableIPv6                   # EnableIPv6
 # DisableNCSIProbe              # EnableNCSIProbe
 # DisableConnectionSharing      # EnableConnectionSharing
 DisableRemoteAssistance         # EnableRemoteAssistance
@@ -82,6 +82,7 @@ EnableUpdateMSProducts          # DisableUpdateMSProducts
 # DisableUpdateAutoDownload     # EnableUpdateAutoDownload
 DisableUpdateRestart            # EnableUpdateRestart
 DisableMaintenanceWakeUp        # EnableMaintenanceWakeUp
+# DisableAutoRestartSignOn      # EnableAutoRestartSignOn
 DisableSharedExperiences        # EnableSharedExperiences
 # EnableClipboardHistory        # DisableClipboardHistory
 DisableAutoplay                 # EnableAutoplay
@@ -199,12 +200,18 @@ DisableEdgeShortcutCreation     # EnableEdgeShortcutCreation
 DisableIEFirstRun               # EnableIEFirstRun
 DisableFirstLogonAnimation      # EnableFirstLogonAnimation
 DisableMediaSharing             # EnableMediaSharing
+# EnableDeveloperMode           # DisableDeveloperMode
 UninstallMediaPlayer            # InstallMediaPlayer
 UninstallInternetExplorer       # InstallInternetExplorer
 # UninstallWorkFolders          # InstallWorkFolders
+UninstallHelloFace            # InstallHelloFace
+UninstallMathRecognizer       # InstallMathRecognizer
 # UninstallPowerShellV2         # InstallPowerShellV2
+# UninstallPowerShellISE        # InstallPowerShellISE
 # InstallLinuxSubsystem         # UninstallLinuxSubsystem
 # InstallHyperV                 # UninstallHyperV
+# UninstallSSHClient            # InstallSSHClient
+# InstallSSHServer              # UninstallSSHServer
 # InstallNET23                  # UninstallNET23
 SetPhotoViewerAssociation       # UnsetPhotoViewerAssociation
 AddPhotoViewerOpenWith          # RemovePhotoViewerOpenWith

@@ -1,0 +1,2 @@
+# Apply CIS Buildkit to local computer
+Get-ChildItem -Directory -Recurse -Depth 2 |Where-Object Name -Match "^{" | ForEach-Object {.\LGPO.exe /g $_.FullName}
